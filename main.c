@@ -14,9 +14,18 @@ int blockName[20][2]={{13,7},{13,17},{13,27},{13,37},{13,47},
 
 
 
+void playerComads();
+void grid();
+
+int main() {
+ printf("1\n\n");
+grid();
+
+}
+
 void playerComads()
 { 
-    int moveAD[]={[0]=-5,[3]=+5};
+  int moveAD[]={[0]=-5,[3]=+5};
 
   printf("Please enter block\n"); 
   int blockNumb=getch()-48;
@@ -26,8 +35,7 @@ void playerComads()
   blockMove-=97;
   
   
-  
-  if(((blockName[blockNumb][1]+moveAD[blockMove])%10==7||(blockName[blockNumb][1]+moveAD[blockMove])%10==2)&&(blockName[blockNumb][1]+moveAD[blockMove]>1&&blockName[blockNumb][1]+moveAD[blockMove]<48))//#1
+  if(((blockName[blockNumb][1]+moveAD[blockMove])%10==7||(blockName[blockNumb][1]+moveAD[blockMove])%10==2)&&(blockName[blockNumb][1]+moveAD[blockMove]>1&&blockName[blockNumb][1]+moveAD[blockMove]<48))
     { int cPositionNotEqual=0;
       for(int i=0;i<20;i++)
       { 
@@ -36,61 +44,30 @@ void playerComads()
          }        
       } 
       
-      if(cPositionNotEqual==0)//#2
+      if(cPositionNotEqual==0)
       {
-        if(blockName[blockNumb][0]>0)//#3
+        if(blockName[blockNumb][0]>0)
         { 
           blockName[blockNumb][0]=blockName[blockNumb][0]-2;//increment the coloums
           blockName[blockNumb][1]+=moveAD[blockMove];
+          grid();
           
-        }else{printf("#3 MOVE NOT VALID\n");sleep(1);printf("\e[1;1H\e[2J");}
+        }else{printf("MOVE NOT VALID\n");playerComads();}
        
-      }else{printf("#2 MOVE LOCATION OCCUPIDE\n");sleep(1);printf("\e[1;1H\e[2J");}
+      }else{printf("MOVE LOCATION OCCUPIDE\n");playerComads();}
              
     }else{
-          printf(" #1 MOVE NOT VALID"); sleep(1);printf("\e[1;1H\e[2J");
+          printf("MOVE NOT VALID\n"); sleep(1);playerComads();
          }
-        
- 
-  
+//Function END 
 }
-  
 
-
-
-
-
-
-void grid(void)
+void grid()
 {
-
-//DO NOT TOUCH
-/*
-
-//Appraoch n3
-int j=0,cP=0,c=0; //cP=count player & c=count
-for(int i=0;i<21;i++)
-   {for(j=0;j<60;j++)
-    { if(i%2==0)      
-        {printf("*");}      
-       if((i%2!=0&&c==5&&j<52)||(j==0))      
-        {printf("*");c=0;}        
-         if(i%2!=0&&c!=5&&j<52)
-         {printf(" ");cP++;c++;}
-    }
-      printf("\n");
-   }
-
-*/
-
-
-
-
-
 //Appraoch n3
 int j=0,cP=0,c=0; //cP=count player & c=count asterisc
 for(int i=0;i<21;i++)
-   {for(j=0;j<60;j++)
+   {for(j=0;j<55;j++)
     { if(i%2==0)  //condition to print streight    
         {printf("*");}  //*    
        
@@ -117,7 +94,7 @@ for(int i=0;i<21;i++)
       
    }
 
-  
+  playerComads();
 
 
 
@@ -137,13 +114,3 @@ for(int i=0;i<21;i++)
 
 
 
-int main() {
- printf("1\n\n");
-grid();
-
-
-
-
-
-
-}
