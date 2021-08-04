@@ -16,46 +16,46 @@ int blockName[20][2]={{13,7},{13,17},{13,27},{13,37},{13,47},
 
 void playerComads()
 { 
-  printf("Please enter block");
+    int moveAD[]={[0]=-5,[3]=+5};
+
+  printf("Please enter block\n"); 
   int blockNumb=getch()-48;
-  printf("Please enter block move (a or d) ");
-  char blockMove=getch();
+  printf("Please enter block move (a or d) \n");
+  int blockMove=getch();
+  printf("\e[1;1H\e[2J");
+  blockMove-=97;
   
   
-  //Left right comands
-  switch (blockMove)
-  {
-  case 'a':
-  blockName[blockNumb][0]=blockName[blockNumb][0]-2;//increment the coloums  
-  //-5
-  if((blockName[blockNumb][1]-5)%10==7)
-  { 
-    blockName[blockNumb][1]-=5;   
-  }
-  break;
-  case 'd':
-  blockName[blockNumb][0]=blockName[blockNumb][0]-2;//increment the coloums   
-   //+5
-   if((blockName[blockNumb][1]+5)%10==7)
-  {
-    blockName[blockNumb][1]+=5;
-  }
-  break;
-  }
-
-
-
-
-
   
-  if(blockName[blockNumb][0]>0&&blockName[blockNumb][0]<19&&blockName[blockNumb][1]>1&&blockName[blockNumb][1]<48)
-  { 
-
-  }
-
-  //Player location 
+  if(((blockName[blockNumb][1]+moveAD[blockMove])%10==7||(blockName[blockNumb][1]+moveAD[blockMove])%10==2)&&(blockName[blockNumb][1]+moveAD[blockMove]>1&&blockName[blockNumb][1]+moveAD[blockMove]<48))//#1
+    { int cPositionNotEqual=0;
+      for(int i=0;i<20;i++)
+      { 
+         if(blockName[i][0]==(blockName[blockNumb][0]-2)&&blockName[i][1]==(blockName[blockNumb][1]+moveAD[blockMove])) {    
+          cPositionNotEqual++;
+         }        
+      } 
+      
+      if(cPositionNotEqual==0)//#2
+      {
+        if(blockName[blockNumb][0]>0)//#3
+        { 
+          blockName[blockNumb][0]=blockName[blockNumb][0]-2;//increment the coloums
+          blockName[blockNumb][1]+=moveAD[blockMove];
+          
+        }else{printf("#3 MOVE NOT VALID\n");sleep(1);printf("\e[1;1H\e[2J");}
+       
+      }else{printf("#2 MOVE LOCATION OCCUPIDE\n");sleep(1);printf("\e[1;1H\e[2J");}
+             
+    }else{
+          printf(" #1 MOVE NOT VALID"); sleep(1);printf("\e[1;1H\e[2J");
+         }
+        
+ 
   
 }
+  
+
 
 
 
