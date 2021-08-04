@@ -5,41 +5,59 @@
 #include "getch.h"
 
 int xPos=0,yPos=0,score=0,randC=0,randR=0;
+//Blocks location
+int blockName[20][2]={{13,7},{13,17},{13,27},{13,37},{13,47},
+                        {15,2},{15,12},{15,22},{15,32},{15,42},
+                       {17,7},{17,17},{17,27},{17,37},{17,47},
+                       {19,2},{19,12},{19,22},{19,32},{19,42}};
+
+
+
 
 void playerComads()
 { 
-  char playerIn=getch();
+  printf("Please enter block");
+  int blockNumb=getch()-48;
+  printf("Please enter block move (a or d) ");
+  char blockMove=getch();
+  
+  
+  //Left right comands
+  switch (blockMove)
+  {
+  case 'a':
+  blockName[blockNumb][0]=blockName[blockNumb][0]-2;//increment the coloums  
+  //-5
+  if((blockName[blockNumb][1]-5)%10==7)
+  { 
+    blockName[blockNumb][1]-=5;   
+  }
+  break;
+  case 'd':
+  blockName[blockNumb][0]=blockName[blockNumb][0]-2;//increment the coloums   
+   //+5
+   if((blockName[blockNumb][1]+5)%10==7)
+  {
+    blockName[blockNumb][1]+=5;
+  }
+  break;
+  }
 
+
+
+
+
+  
+  if(blockName[blockNumb][0]>0&&blockName[blockNumb][0]<19&&blockName[blockNumb][1]>1&&blockName[blockNumb][1]<48)
+  { 
+
+  }
 
   //Player location 
-  switch(playerIn)
-   { case '0':
-     yPos--;
-     break;   
-     case '1':
-     yPos++;
-     break;
-     case 'd':
-     xPos++;
-     break;
-     case 'a':
-     xPos--;
-     break;
-   }   
-}
-
-int *blocks(void)
-{         
-                       //There is a pattern for the intial block either start from 2 ot 7 and than add 10 each iteration.
-  int blockName[20][2]={{13,7},{13,17},{13,27},{13,37},{13,47},
-                        {15,2},{15,12},{15,22},{15,32},{15,42},
-                        {17,7},{17,17},{17,27},{17,37},{17,47},
-                        {19,2},{19,12},{19,22},{19,32},{19,42}};
   
-
-
-
 }
+
+
 
 
 
@@ -68,8 +86,9 @@ for(int i=0;i<21;i++)
 
 
 
+
 //Appraoch n3
-int j=0,cP=0,c=0; //cP=count player & c=count
+int j=0,cP=0,c=0; //cP=count player & c=count asterisc
 for(int i=0;i<21;i++)
    {for(j=0;j<60;j++)
     { if(i%2==0)  //condition to print streight    
@@ -80,11 +99,18 @@ for(int i=0;i<21;i++)
 
       //I need to make some changes the print has to be subsituted with something else   
       if(i%2!=0&&c!=5&&j<52)//Condition that prints the white spaces
-           {  if(cP==2){printf("@");}else{printf(" ");}//" "
-              //if(cP==5){cP=0;}
-           // printf("%d",cP);
-            //cP++;c++;
-           }//remeber         
+           {         
+              if(cP==2)
+               {  for(int aa=0;aa<20;aa++) //Loop iterating arr storing location
+                  {if(blockName[aa][0]==i&&blockName[aa][1]==j) //using the coloum and rows method to compare the stored locatin in array
+                   {printf("@");}
+                  }//No else
+
+               }else{printf(" ");}//" "
+              
+              if(cP==5){cP=0;}            
+            cP++;c++;
+           }      
     }
       cP=0;
       printf("\n");
